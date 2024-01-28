@@ -28,16 +28,24 @@ class Place(BaseModel, Base):
         """Getter attribute that returns the list of Review instances"""
         return (
             [review for review in self.reviews if review.place_id == self.id])
-    
+
     place_amenity = Table(
-        'place_amenity', Base.metadata,
-        Column('place_id', String(60), ForeignKey('places.id'), primary_key=True),
-        Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True)
-    )
+        'place_amenity',
+        Base.metadata,
+        Column(
+            'place_id',
+            String(60),
+            ForeignKey('places.id'),
+            primary_key=True),
+        Column(
+            'amenity_id',
+            String(60),
+            ForeignKey('amenities.id'),
+            primary_key=True))
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         amenities = relationship("Amenity", secondary=place_amenity,
-                             backref="places", viewonly=False)
+                                 backref="places", viewonly=False)
     else:
         amenity_ids = []
 
@@ -51,7 +59,7 @@ class Place(BaseModel, Base):
                 if amenity:
                     amenities.append(amenity)
             return amenities
-        
+
         @amenities.setter
         def amenities(self, new_amenities):
             """Setter attribute for amenities (file storage)"""

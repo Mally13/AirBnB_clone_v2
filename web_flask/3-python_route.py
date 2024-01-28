@@ -25,6 +25,7 @@ def hello_world_3(text):
     return f'C {normal_text}'
 
 
+@app.route("/python", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def hello_world_4(text="is cool"):
     """Displays the message Python with parameter text"""

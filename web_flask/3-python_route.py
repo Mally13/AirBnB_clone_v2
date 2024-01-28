@@ -28,8 +28,8 @@ def hello_world_3(text):
 @app.route("/python/<text>", strict_slashes=False)
 def hello_world_4(text="is cool"):
     """Displays the message Python with parameter text"""
-    normal_text = text.replace('_', " ")
-    return f'Python {normal_text}'
+    text = text.replace('_', " ")
+    return f'Python {text}'
 
 
 if __name__ == '__main__':

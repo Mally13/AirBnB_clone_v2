@@ -23,10 +23,6 @@ class FileStorage:
         """Adds new object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
 
-    def close(self):
-        """Calls reload method"""
-        self.reload()
-
     def save(self):
         """Saves storage dictionary to file"""
         with open(FileStorage.__file_path, 'w') as f:
@@ -58,6 +54,10 @@ class FileStorage:
                     self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def close(self):
+        """Calls reload method"""
+        self.reload()
 
     def delete(self, obj=None):
         """Deletes an object"""
